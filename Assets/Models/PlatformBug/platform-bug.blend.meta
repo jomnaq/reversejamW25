@@ -35,7 +35,7 @@ ModelImporter:
       takeName: Scene
       internalID: -623603649343465320
       firstFrame: 1
-      lastFrame: 60
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -64,7 +64,7 @@ ModelImporter:
       takeName: Scene
       internalID: -8800838248204228948
       firstFrame: 120
-      lastFrame: 180
+      lastFrame: 150
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -92,8 +92,8 @@ ModelImporter:
       name: CrouchUp
       takeName: Scene
       internalID: 723096430288179899
-      firstFrame: 180
-      lastFrame: 240
+      firstFrame: 150
+      lastFrame: 180
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
