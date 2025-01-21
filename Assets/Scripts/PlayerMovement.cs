@@ -4,21 +4,22 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float mouseSensitivity = 500f;
-    public float jumpForce = 5f;  // Force applied when jumping
-    public Transform groundCheck; // Transform at the player's feet to check if grounded
-    public float groundDistance = 0.4f;  // Distance to the ground to check for collision
-    public LayerMask groundMask;  // Layer representing the ground
+    public float jumpForce = 5f;  
+    public Transform groundCheck; 
+    public float groundDistance = 0.6f; 
+    public LayerMask groundMask; 
 
     private Rigidbody rb;
     private bool isGrounded;
     private float xRotation = 0f;
+    private Vector3 velocity;
 
     public Transform playerBody;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        rb = playerBody.GetComponent<Rigidbody>();  // Get Rigidbody from the player (parent object)
+        rb = playerBody.GetComponent<Rigidbody>();  // Player Rigidbody
     }
 
     void Update()
@@ -33,15 +34,15 @@ public class PlayerMovement : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
 
-        // Player movement
-        float moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        float moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        playerBody.position += move;
+        velocity = move * speed;
 
-        // Ground check to allow jumping only when grounded
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
+
+        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundMask);
 
         // Jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
